@@ -6,13 +6,13 @@ function useAuth(initialValue) {
   function login() {
     setTimeout(() => {
       setIsAuth(true);
-    }, 100);
+    }, 1);
   }
 
   function logout() {
     setTimeout(() => {
       setIsAuth(false);
-    }, 100);
+    }, 1);
   }
   return [isAuth, login, logout];
 }

@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import classes from "./AddTeacher.module.css";
+
 function AddTeacher() {
   const navigate = useNavigate();
 
@@ -36,36 +38,60 @@ function AddTeacher() {
         "Content-type": "application/json",
       },
     }).then(() => {
-      navigate("/");
+      navigate("/all-teachers");
     });
   }
 
   return (
-    <div className="container">
+    <div className={classes.container}>
       <h1>Add a Teacher</h1>
-      <form onSubmit={submitHandler}>
-        <div>
+      <form className={classes.form} onSubmit={submitHandler}>
+        <div className={classes.formControl}>
           <label htmlFor="name">Full name</label>
-          <input type="text" required id="name" ref={fullNameInputRef} />
+          <input
+            className={classes.input}
+            type="text"
+            required
+            id="name"
+            ref={fullNameInputRef}
+            autoComplete="off"
+          />
         </div>
-        <div>
+        <div className={classes.formControl}>
           <label htmlFor="username">Username</label>
-          <input type="text" required id="username" ref={userNameInputRef} />
+          <input
+            className={classes.input}
+            type="text"
+            required
+            id="username"
+            ref={userNameInputRef}
+            autoComplete="off"
+          />
         </div>
-        <div>
+        <div className={classes.formControl}>
           <label htmlFor="email">Email</label>
-          <input type="text" required id="email" ref={emailInputRef} />
+          <input
+            className={classes.input}
+            type="text"
+            required
+            id="email"
+            ref={emailInputRef}
+            autoComplete="off"
+          />
         </div>
-        <div>
+        <div className={classes.formControl}>
           <label htmlFor="password">Password</label>
           <input
+            className={classes.input}
             type="password"
             required
             id="password"
             ref={passwordInputRef}
           />
         </div>
-        <button>Add</button>
+        <div className={classes.btn}>
+          <button>Add</button>
+        </div>
       </form>
     </div>
   );

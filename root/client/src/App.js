@@ -23,11 +23,11 @@ import LoginPrincipal from "./pages/LoginPrincipal";
 import LoginTeacher from "./pages/LoginTeacher";
 
 function App() {
-  const [isAuth, login, logout] = useAuth(false);
+  const loggedIn = window.sessionStorage.getItem("userId");
+  const [isAuth, login, logout] = useAuth(Number(loggedIn));
 
+  console.log(loggedIn);
   useEffect(() => {
-    const loggedIn = window.sessionStorage.getItem("userId");
-    console.log(loggedIn);
     if (loggedIn === "1") {
       console.log("here");
       login();
@@ -54,16 +54,36 @@ function App() {
           <Route
             path="/add-teacher"
             element={
-              <RequireAuth redirectTo="/login" auth={isAuth}>
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
                 <AddTeacher />
               </RequireAuth>
             }
           />
+          <Route
+            path="/all-teachers"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <AllTeachers />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/all-students"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <AllStudents />
+              </RequireAuth>
+            }
+          />
 
-          {/* <Route path="/add-teacher" element={<AddTeacher />} /> */}
-          <Route path="/all-teachers" element={<AllTeachers />} />
-          <Route path="/add-student" element={<AddStudent />} />
-          <Route path="/all-students" element={<AllStudents />} />
+          <Route
+            path="/add-student"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <AddStudent />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </Layout>
     </div>
@@ -71,6 +91,7 @@ function App() {
 }
 
 function RequireAuth({ children, redirectTo, isAuth }) {
+  console.log(isAuth);
   return isAuth ? children : <Navigate to={redirectTo} />;
 }
 

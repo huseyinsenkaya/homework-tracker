@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import classes from "./Login.module.css";
 
 function LoginPrincipal(props) {
   const navigate = useNavigate();
@@ -24,29 +25,42 @@ function LoginPrincipal(props) {
   }
 
   return (
-    <div className="login">
-      <form onSubmit={submitHandler}>
-        <div>
+    <div className={classes.login}>
+      <h1>Principal</h1>
+      <form className={classes.form} onSubmit={submitHandler}>
+        <div className={classes.formControl}>
           <label htmlFor="username">Username</label>
-          <input type="text" required id="username" ref={userNameInputRef} />
+          <input
+            type="text"
+            required
+            id="username"
+            ref={userNameInputRef}
+            autoComplete="off"
+            className={classes.input}
+          />
         </div>
-        <div>
+        <div className={classes.formControl}>
           <label htmlFor="password">Password</label>
           <input
+            className={classes.input}
             type="password"
             required
             id="password"
             ref={passwordInputRef}
           />
         </div>
-        <div>
+        <div className={classes.btn}>
           <button>Login</button>
         </div>
       </form>
 
       <div>
-        <Link to="/login">Login Student Account</Link>
-        <Link to="/login-teacher">Login Teacher Account</Link>
+        <Link className={classes.navLink} to="/login">
+          Student Account
+        </Link>
+        <Link className={classes.navLink} to="/login-teacher">
+          Teacher Account
+        </Link>
       </div>
     </div>
   );

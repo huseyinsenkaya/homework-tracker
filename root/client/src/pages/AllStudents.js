@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import StudentList from '../components/students/StudentList'
+import classes from './AllStudents.module.css'
 
 function AllStudents() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +28,7 @@ function AllStudents() {
   }
 
   return (
-    <section>
+    <section className={classes.container}>
       <h1>All Students</h1>
       <StudentList students={loadedStudents} />
     </section>

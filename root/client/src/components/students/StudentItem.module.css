@@ -1,0 +1,71 @@
+@import '../../css/variables.css';
+
+.li{
+  color: var(--first-color);
+  padding: 2rem;
+  border: 1px solid var(--first-color);
+  margin-bottom: 20px;
+  border-radius: .5rem;
+  width: 100%;
+}
+.top{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.top button {
+  background-color: var(--danger-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.top button:hover {
+  background-color: var(--text-color);
+  color: var(--danger-color);
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+}
+
+.info p{
+  font-weight: 300;
+  font-style: italic;
+  margin: 0;
+}
+.info span{
+  font-weight: 500;
+  font-style: normal;
+}
+
+.actions{
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+}
+.actions a {
+  width: 100%;
+  background-color: var(--text-color);
+  color: var(--first-color);
+  border: none;
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.actions a:hover {
+  background-color: var(--first-color);
+  color: var(--text-color);
+}

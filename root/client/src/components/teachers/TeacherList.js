@@ -1,8 +1,8 @@
 import TeacherItem from "./TeacherItem";
-
+import classes from "./TeacherList.module.css";
 function TeacherList(props) {
   return (
-    <ul>
+    <ul className={classes.ul}>
       {props.teachers.map((teacher, index) => (
         <TeacherItem
           key={index}
@@ -10,6 +10,7 @@ function TeacherList(props) {
           fullName={teacher.fullName}
           username={teacher.username}
           email={teacher.email}
+          removeHandler={props.removeHandler}
         />
       ))}
     </ul>

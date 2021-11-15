@@ -11,52 +11,58 @@ function MainNavigation(props) {
   }
 
   return (
-    <header className="shadow-sm">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+    <header>
+      <nav className="navbar navbar-expand-lg">
+        <div className="container-fluid p-0">
+          <Link className="navbar-brand" className={classes.logo} to="/">
             Homework Tracker
           </Link>
           <ul className="navbar-nav mb-2 mb-lg-0">
-            <li className="nav-item">
-              {props.isAuth && (
-                <Link className="nav-link" to="/" onClick={handleLogout}>
-                  Logout
-                </Link>
-              )}
-              {!props.isAuth && (
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              )}
-            </li>
-
-            {/* Access list elements base on Principal, Teacher, Student */}
-            {/* <UserActionsLinks isAuth={props.isAuth} /> */}
-
+            {/* The Principal*/}
             {props.isAuth && (
               <li className="nav-item">
-                <Link className="nav-link" to="/add-teacher">
+                <Link className={classes.navLink} to="/add-teacher">
                   Add a Teacher
                 </Link>
               </li>
             )}
+            {props.isAuth && (
+              <li className="nav-item">
+                <Link className={classes.navLink} to="/all-teachers">
+                  Teachers
+                </Link>
+              </li>
+            )}
+            {props.isAuth && (
+              <li className="nav-item">
+                <Link className={classes.navLink} to="/add-student">
+                  Add a Student
+                </Link>
+              </li>
+            )}
+            {props.isAuth && (
+              <li className="nav-item">
+                <Link className={classes.navLink} to="/all-students">
+                  Students
+                </Link>
+              </li>
+            )}
 
-            {/* The Principal
-            
-            {props.isAuth && 
+            {/* Login/Logout */}
             <li className="nav-item">
-              <Link className="nav-link" to="/add-teacher">Add a Teacher</Link>
+              {props.isAuth && (
+                <Link className={classes.navLink+" "+classes.btn} to="/" onClick={handleLogout}>
+                  Logout
+                </Link>
+              )}
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/all-teachers">Teachers</Link>
+            <li>
+              {!props.isAuth && (
+                <Link className={classes.navLink+" "+classes.btn} to="/login">
+                  Login
+                </Link>
+              )}
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/add-student">Add a Student</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/all-students">Students</Link>
-            </li> */}
           </ul>
         </div>
       </nav>

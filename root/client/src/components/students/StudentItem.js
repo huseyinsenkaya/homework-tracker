@@ -1,17 +1,32 @@
-import Card from '../ui/Card'
+import { Link } from "react-router-dom";
 
+import classes from "./StudentItem.module.css";
 function StudentItem(props) {
   return (
-    <li>
-      <Card>
-        <div>
-          <h3>{props.id}</h3>
+    <>
+      <li className={classes.li}>
+        <div className={classes.top}>
           <h3>{props.fullName}</h3>
-          <h3>{props.username}</h3>
-          <h3>{props.email}</h3>
+          <button>Remove</button>
         </div>
-      </Card>
-    </li>
+        <div className={classes.bottom}>
+          <div className={classes.info}>
+            <p>
+              <span>username:</span> {props.username}
+            </p>
+            <p>
+              <span>email:</span> {props.email}
+            </p>
+            <p>
+              <span>teacher:</span> {props.teacher}
+            </p>
+          </div>
+          <div className={classes.actions}>
+            <Link to="/">Homeworks</Link>
+          </div>
+        </div>
+      </li>
+    </>
   );
 }
 

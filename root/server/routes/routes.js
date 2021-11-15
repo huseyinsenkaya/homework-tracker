@@ -9,6 +9,7 @@ router.post("/add-student", (req, res) => {
     fullName: req.body.fullName,
     username: req.body.username,
     email: req.body.email,
+    teacher: req.body.teacher,
     password: req.body.password,
   });
   addedStudent
@@ -28,8 +29,8 @@ router.post("/add-teacher", (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
-    homeworks:req.body.homeworks,
-    students:req.body.students,
+    homeworks: req.body.homeworks,
+    students: req.body.students,
   });
   addedTeacher
     .save()
@@ -39,6 +40,18 @@ router.post("/add-teacher", (req, res) => {
     .catch((err) => {
       res.json(err);
     });
+});
+
+// Remove Teacher
+router.post("/remove-teacher", (req, res) => {
+  const removedTeacherID = req.body.id;
+  TeacherModel.findByIdAndDelete(removedTeacherID, (err, docs) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.sendStatus(200);
+    }
+  });
 });
 
 //List all Students
@@ -62,6 +75,5 @@ router.get("/all-teachers", (req, res) => {
       console.log(err);
     });
 });
-
 
 module.exports = router;
