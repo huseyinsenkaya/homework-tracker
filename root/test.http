@@ -1,8 +1,0 @@
-POST http://localhost:5000/add-homework HTTP/1.1
-content-type: application/json
-
-{
-    "tite":"d",
-    "description":"d",
-    "damn":"d"
-}
