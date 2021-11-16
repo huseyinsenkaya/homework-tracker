@@ -4,6 +4,7 @@ const StudentModel = require("../models/StudentModels");
 const TeacherModel = require("../models/TeacherModel");
 const PrincipalModel = require("../models/PrincipalModel");
 const HomeworkModel = require("../models/HomeworkModel");
+const HomeworkStudentModel = require("../models/HomeworkStudentModel");
 
 // Add Student
 router.post("/add-student", (req, res) => {
@@ -22,6 +23,15 @@ router.post("/add-student", (req, res) => {
     .catch((err) => {
       res.json(err);
     });
+  TeacherModel.findOneAndUpdate(
+    { fullName: addedStudent.teacher },
+    { $push: { students: addedStudent } },
+    (err, info) => {
+      if (err) {
+        console.log("Cannot added student to teacher.students field");
+      }
+    }
+  );
 });
 
 // Add Teacher
@@ -65,6 +75,57 @@ router.post("/add-homework", (req, res) => {
   );
 });
 
+// Add HomeworkStudent
+router.post("/add-homeworkStudent/:id", (req, res) => {
+  const enteredHomeworkStudent = new HomeworkStudentModel({
+    title: req.body.title,
+    image: req.body.image,
+  });
+  const studentID = req.params.id;
+  
+  StudentModel.findOneAndUpdate(
+    { _id: studentID },
+    { $push: { myHomeworks: enteredHomeworkStudent } },
+    (err, info) => {
+      if (err) {
+        res.sendStatus(400);
+        console.log(err);
+      } else {
+        const teacherName = info.teacher;
+        TeacherModel.findOne(
+          { fullName: teacherName },
+          (err, foundStudents) => {
+            if (err) {
+              console.log("Cannot added student to teacher.students field");
+            } else {
+              const idx = foundStudents.students
+                .map((item) => item.id)
+                .indexOf(studentID);
+
+              if (idx !== -1) {
+                const studentObject = foundStudents.students[idx];
+                studentObject.myHomeworks.push(enteredHomeworkStudent);
+                // save the doc
+                foundStudents.save(function (error) {
+                  if (error) {
+                    console.log(error);
+                    res.send(null, 500);
+                  } else {
+                    // send the records
+                    res.send(info);
+                  }
+                });
+              } else {
+                res.sendStatus(200);
+              }
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
 // Remove Teacher
 router.post("/remove-teacher", (req, res) => {
   const removedTeacherID = req.body.id;
@@ -80,11 +141,40 @@ router.post("/remove-teacher", (req, res) => {
 // Remove Student
 router.post("/remove-student", (req, res) => {
   const removedStudentID = req.body.id;
-  StudentModel.findByIdAndDelete(removedStudentID, (err, docs) => {
+  StudentModel.findByIdAndDelete(removedStudentID, (err, removedStudent) => {
     if (err) {
       console.log(err);
     } else {
-      res.sendStatus(200);
+      TeacherModel.findOne(
+        { fullName: removedStudent.teacher },
+        (err, info) => {
+          if (err) {
+            console.log(err);
+          } else {
+            // find the deleted student id from the teacher object
+            const idx = info.students
+              .map((item) => item.id)
+              .indexOf(removedStudentID);
+
+            if (idx !== -1) {
+              // removed from the array
+              info.students.splice(idx, 1);
+              // save the doc
+              info.save(function (error) {
+                if (error) {
+                  console.log(error);
+                  res.send(null, 500);
+                } else {
+                  // send the records
+                  res.send(info);
+                }
+              });
+            }
+            // stop here, otherwise 404
+            return;
+          }
+        }
+      );
     }
   });
 });

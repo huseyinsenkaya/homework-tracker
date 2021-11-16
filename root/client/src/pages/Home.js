@@ -1,6 +1,6 @@
 //Style
 import classes from "./Home.module.css";
-import homePage from '../images/homePage.png'
+import homePage from "../images/homePage.png";
 function Home() {
   return (
     <div className={classes.home}>
@@ -9,7 +9,7 @@ function Home() {
         <p>A homework tracking platform for elementary school.</p>
       </div>
       <div className={classes.right}>
-        <img src={homePage}></img>
+        <img src={homePage} alt=""></img>
       </div>
     </div>
   );

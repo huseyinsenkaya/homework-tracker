@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react";
-import classes from "./Assignments.module.css";
-import AssignmentsList from "../components/assignments/AssignmentsList";
-function Assignments() {
-  const [homeworks, setHomeworks] = useState([]);
+import classes from "./MyStudents.module.css";
+import MyStudentsList from "../components/MyStudents/MyStudentsList";
 
+function MyStudents() {
+  const [teachers, setTeachers] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/all-teachers")
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setHomeworks(data);
+        setTeachers(data);
       });
   }, []);
-
   return (
     <section className={classes.container}>
       <h1>All Teachers</h1>
-      {homeworks.length !== 0 && <AssignmentsList homeworks={homeworks} />}
+      {teachers.length !== 0 && <MyStudentsList teachers={teachers} />}
     </section>
   );
 }
 
-export default Assignments;
+export default MyStudents;

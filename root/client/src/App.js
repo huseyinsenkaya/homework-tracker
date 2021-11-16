@@ -12,9 +12,6 @@ import AllTeachers from "./pages/AllTeachers";
 //Components
 import Layout from "./components/layout/Layout";
 
-//Protected Route
-import ProtectedRoute from "./ProtectedRoute";
-
 //Auth
 import useAuth from "./useAuth";
 
@@ -23,18 +20,18 @@ import LoginPrincipal from "./pages/LoginPrincipal";
 import LoginTeacher from "./pages/LoginTeacher";
 import AddHomework from "./pages/AddHomework";
 import Assignments from "./pages/Assignments";
+import MyStudents from "./pages/MyStudents";
+import AddHomeworkStudent from "./pages/AddHomeworkStudent";
+import HomeworksStudent from "./pages/HomeworksStudent";
 
 function App() {
   const loggedIn = window.sessionStorage.getItem("userRole");
   const [isAuth, login, logout] = useAuth(Number(loggedIn));
 
-  console.log(loggedIn);
   useEffect(() => {
     if (loggedIn === "0") {
-      console.log("here");
       logout();
     } else {
-      console.log("here");
       login();
     }
   }, []);
@@ -44,7 +41,10 @@ function App() {
       <Layout isAuth={isAuth}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login isAuth={isAuth} login={login} logout={logout} />}
+          />
           <Route
             path="/login-principal"
             element={
@@ -106,6 +106,31 @@ function App() {
             element={
               <RequireAuth redirectTo="/login" isAuth={isAuth}>
                 <Assignments />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/my-students"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <MyStudents />
+              </RequireAuth>
+            }
+          />
+          {/* The Student */}
+          <Route
+            path="/add-homeworkStudent"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <AddHomeworkStudent />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/homeworks-student"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <HomeworksStudent />
               </RequireAuth>
             }
           />

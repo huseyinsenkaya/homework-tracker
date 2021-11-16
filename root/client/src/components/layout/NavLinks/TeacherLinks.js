@@ -13,6 +13,11 @@ function TeacherLinks() {
           My Assignments
         </Link>
       </li>
+      <li className="nav-item">
+        <Link className={classes.navLink} to="/my-students">
+          My Students
+        </Link>
+      </li>
     </>
   );
 }

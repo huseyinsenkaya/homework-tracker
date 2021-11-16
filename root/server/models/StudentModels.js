@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const HomeworkStudentModel = require("./HomeworkStudentModel");
 const studentSchema = new mongoose.Schema({
   fullName: {
     type: String,
@@ -26,6 +26,11 @@ const studentSchema = new mongoose.Schema({
     required: true,
     default: "Student",
   },
+  myHomeworks: {
+    type: [HomeworkStudentModel.schema],
+    default: [],
+  },
+
   date: {
     type: Date,
     default: Date.now,

@@ -1,14 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./AddHomework.module.css";
 
 function AddHomework() {
   const navigate = useNavigate();
-  //const [loadedTeachers, setLoadedTeachers] = useState([]);
 
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
-  //const teacherNameInputRef = useRef();
 
   function submitHandler(event) {
     event.preventDefault();
@@ -64,17 +62,6 @@ function AddHomework() {
               ref={descriptionInputRef}
             ></textarea>
           </div>
-          {/* <div className={classes.formControl}>
-            <label htmlFor="teacher">Teacher</label>
-            <input
-              className={classes.input}
-              type="text"
-              required
-              id="teacher"
-              autoComplete="off"
-              ref={teacherNameInputRef}
-            />
-          </div> */}
           <div className={classes.btn}>
             <button>Add</button>
           </div>

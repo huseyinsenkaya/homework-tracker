@@ -13,6 +13,8 @@ app.use(cors());
 //Calling the routes
 app.use("/", require("./routes/routes"));
 
+app.use(express.urlencoded({ limit: '50mb', extended: false, parameterLimit: 50000 }))
+
 app.get("/", (req, res) => {
   res.send("hello world");
 });
