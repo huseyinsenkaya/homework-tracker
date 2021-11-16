@@ -32,6 +32,10 @@ _these features are currently developing_
 
 To run a development environment, you can use the `npm run dev` command in the ./root folder. This will start up a development web server on port 3000, and a nodemon-watched API server on port 5000.
 
+```
+ git clone https://github.com/huseyinsenkaya/homework-tracker
+```
+
 - Install MongoDB
 
 * [MongoDB](https://docs.mongodb.com/manual/installation/)
@@ -55,4 +59,8 @@ Create a `.env` file customize the environment for specifying credential informa
 Sample:
 ```
 DATABASE_ACCESS=mongodb+srv://<admin>:<password>@cluster0.543iq.mongodb.net/homeworkTracker?retryWrites=true&w=majority
+
+Login Principal
+- username: admin
+- password: admin123
 ```
