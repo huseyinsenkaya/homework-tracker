@@ -12,6 +12,7 @@ function StudentList(props) {
           username={student.username}
           email={student.email}
           teacher={student.teacher}
+          removeHandler={props.removeHandler}
         />
       )
       )}

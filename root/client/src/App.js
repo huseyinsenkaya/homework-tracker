@@ -21,19 +21,21 @@ import useAuth from "./useAuth";
 //Login
 import LoginPrincipal from "./pages/LoginPrincipal";
 import LoginTeacher from "./pages/LoginTeacher";
+import AddHomework from "./pages/AddHomework";
+import Assignments from "./pages/Assignments";
 
 function App() {
-  const loggedIn = window.sessionStorage.getItem("userId");
+  const loggedIn = window.sessionStorage.getItem("userRole");
   const [isAuth, login, logout] = useAuth(Number(loggedIn));
 
   console.log(loggedIn);
   useEffect(() => {
-    if (loggedIn === "1") {
-      console.log("here");
-      login();
-    } else {
+    if (loggedIn === "0") {
       console.log("here");
       logout();
+    } else {
+      console.log("here");
+      login();
     }
   }, []);
 
@@ -46,11 +48,16 @@ function App() {
           <Route
             path="/login-principal"
             element={
-              <LoginPrincipal isAuth={isAuth} login={login} logout={logout} s />
+              <LoginPrincipal isAuth={isAuth} login={login} logout={logout} />
             }
           />
-          <Route path="/login-teacher" element={<LoginTeacher />} />
-
+          <Route
+            path="/login-teacher"
+            element={
+              <LoginTeacher isAuth={isAuth} login={login} logout={logout} />
+            }
+          />
+          {/* The Principal */}
           <Route
             path="/add-teacher"
             element={
@@ -84,6 +91,24 @@ function App() {
               </RequireAuth>
             }
           />
+
+          {/* The Teacher */}
+          <Route
+            path="/add-homework"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <AddHomework />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/assignments"
+            element={
+              <RequireAuth redirectTo="/login" isAuth={isAuth}>
+                <Assignments />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </Layout>
     </div>
@@ -91,7 +116,6 @@ function App() {
 }
 
 function RequireAuth({ children, redirectTo, isAuth }) {
-  console.log(isAuth);
   return isAuth ? children : <Navigate to={redirectTo} />;
 }
 

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import classes from "./Login.module.css";
@@ -7,20 +7,37 @@ function LoginPrincipal(props) {
   const navigate = useNavigate();
   const userNameInputRef = useRef();
   const passwordInputRef = useRef();
+  const [principals, setPrincipals] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/all-principals")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setPrincipals(data);
+      });
+  }, []);
 
   function submitHandler(event) {
     event.preventDefault();
-
-    //For testing
-    if (
-      userNameInputRef.current.value === "Admin" &&
-      passwordInputRef.current.value === "Admin123"
-    ) {
-      window.sessionStorage.setItem("userId", "1");
-      props.login();
-      navigate("/");
-    } else {
-      navigate("/login-principal");
+    let flag = true;
+    for (const item of principals) {
+      if (
+        item.username === userNameInputRef.current.value &&
+        item.password === passwordInputRef.current.value &&
+        item.userRole === "Admin"
+      ) {
+        window.sessionStorage.setItem("userRole", "1");
+        props.login();
+        navigate("/");
+        break;
+      } else {
+        flag = false;
+      }
+    }
+    if (!flag) {
+      navigate("/login-principals");
     }
   }
 

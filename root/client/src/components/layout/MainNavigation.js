@@ -2,14 +2,25 @@ import { Link, useNavigate } from "react-router-dom";
 
 //Style
 import classes from "./MainNavigation.module.css";
+import PrincipalLinks from "./NavLinks/PrincipalLinks";
+import TeacherLinks from "./NavLinks/TeacherLinks";
 
 function MainNavigation(props) {
   const navigate = useNavigate();
   function handleLogout() {
-    window.sessionStorage.setItem("userId", "0");
+    window.sessionStorage.setItem("userRole", "0");
     window.location.reload(false);
   }
 
+  const userId = Number(window.sessionStorage.getItem("userRole"));
+  let checkAuth = "";
+  if (props.isAuth && userId === 1) {
+    checkAuth = "Admin";
+  } else if (props.isAuth && userId === 2) {
+    checkAuth = "Teacher";
+  } else {
+    checkAuth = "Student";
+  }
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
@@ -19,46 +30,29 @@ function MainNavigation(props) {
           </Link>
           <ul className="navbar-nav mb-2 mb-lg-0">
             {/* The Principal*/}
-            {props.isAuth && (
-              <li className="nav-item">
-                <Link className={classes.navLink} to="/add-teacher">
-                  Add a Teacher
-                </Link>
-              </li>
-            )}
-            {props.isAuth && (
-              <li className="nav-item">
-                <Link className={classes.navLink} to="/all-teachers">
-                  Teachers
-                </Link>
-              </li>
-            )}
-            {props.isAuth && (
-              <li className="nav-item">
-                <Link className={classes.navLink} to="/add-student">
-                  Add a Student
-                </Link>
-              </li>
-            )}
-            {props.isAuth && (
-              <li className="nav-item">
-                <Link className={classes.navLink} to="/all-students">
-                  Students
-                </Link>
-              </li>
-            )}
+            {checkAuth === "Admin" && <PrincipalLinks />}
+
+            {/* The Teacher*/}
+            {checkAuth === "Teacher" && <TeacherLinks />}
 
             {/* Login/Logout */}
             <li className="nav-item">
               {props.isAuth && (
-                <Link className={classes.navLink+" "+classes.btn} to="/" onClick={handleLogout}>
+                <Link
+                  className={classes.navLink + " " + classes.btn}
+                  to="/"
+                  onClick={handleLogout}
+                >
                   Logout
                 </Link>
               )}
             </li>
             <li>
               {!props.isAuth && (
-                <Link className={classes.navLink+" "+classes.btn} to="/login">
+                <Link
+                  className={classes.navLink + " " + classes.btn}
+                  to="/login"
+                >
                   Login
                 </Link>
               )}
@@ -69,14 +63,5 @@ function MainNavigation(props) {
     </header>
   );
 }
-
-// function UserActionsLinks(isAuth) {
-//   if (isAuth) {
-//     if (role === "Admin") {
-//     } else if (role === "Teacher") {
-//     } else {
-//     }
-//   }
-// }
 
 export default MainNavigation;

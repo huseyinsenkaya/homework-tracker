@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 import classes from "./StudentItem.module.css";
 function StudentItem(props) {
@@ -7,7 +7,9 @@ function StudentItem(props) {
       <li className={classes.li}>
         <div className={classes.top}>
           <h3>{props.fullName}</h3>
-          <button>Remove</button>
+          <button onClick={props.removeHandler} data-id={props.id}>
+            Remove
+          </button>
         </div>
         <div className={classes.bottom}>
           <div className={classes.info}>

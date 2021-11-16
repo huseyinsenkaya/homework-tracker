@@ -1,6 +1,8 @@
-POST http://localhost:5000/remove-teacher HTTP/1.1
+POST http://localhost:5000/add-homework HTTP/1.1
 content-type: application/json
 
 {
-    "id":"545845"
+    "tite":"d",
+    "description":"d",
+    "damn":"d"
 }

@@ -1,4 +1,5 @@
 const StudentModel = require("./StudentModels");
+const HomeworkModel = require("./HomeworkModel");
 
 const mongoose = require("mongoose");
 
@@ -22,10 +23,10 @@ const teacherSchema = new mongoose.Schema({
   userRole: {
     type: String,
     required: true,
-    default: "Student",
+    default: "Teacher",
   },
   homeworks: {
-    type: [String],
+    type: [HomeworkModel.schema],
     default: undefined,
   },
   students: {

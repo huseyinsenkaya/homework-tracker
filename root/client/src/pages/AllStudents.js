@@ -19,6 +19,20 @@ function AllStudents() {
       });
   }, []);
 
+  function removeHandler(e) {
+    const id = { id: e.currentTarget.getAttribute("data-id") };
+    const newArr = loadedStudents.filter((item) => item._id !== id.id);
+    setLoadedStudents(newArr);
+
+    fetch("http://localhost:5000/remove-student", {
+      method: "POST",
+      body: JSON.stringify(id),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+  }
+
   if (isLoading) {
     return (
       <section>
@@ -30,7 +44,7 @@ function AllStudents() {
   return (
     <section className={classes.container}>
       <h1>All Students</h1>
-      <StudentList students={loadedStudents} />
+      <StudentList students={loadedStudents} removeHandler={removeHandler}/>
     </section>
   );
 }
