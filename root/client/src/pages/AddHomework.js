@@ -8,28 +8,18 @@ function AddHomework() {
 
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
-  const teacherNameInputRef = useRef();
-
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/all-teachers")
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       setLoadedTeachers(data);
-  //     });
-  // }, []);
+  //const teacherNameInputRef = useRef();
 
   function submitHandler(event) {
     event.preventDefault();
     const enteredTitle = titleInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
-    const enteredTeacherName = teacherNameInputRef.current.value;
+    const enteredTeacherId = window.sessionStorage.getItem("userId");
 
     const homeworkData = {
       title: enteredTitle,
       description: enteredDescription,
-      teacher: enteredTeacherName,
+      teacherId: enteredTeacherId,
     };
     addHomeworkHandler(homeworkData);
   }
@@ -74,7 +64,7 @@ function AddHomework() {
               ref={descriptionInputRef}
             ></textarea>
           </div>
-          <div className={classes.formControl}>
+          {/* <div className={classes.formControl}>
             <label htmlFor="teacher">Teacher</label>
             <input
               className={classes.input}
@@ -84,7 +74,7 @@ function AddHomework() {
               autoComplete="off"
               ref={teacherNameInputRef}
             />
-          </div>
+          </div> */}
           <div className={classes.btn}>
             <button>Add</button>
           </div>

@@ -49,11 +49,11 @@ router.post("/add-homework", (req, res) => {
   const enteredHomework = new HomeworkModel({
     title: req.body.title,
     description: req.body.description,
-    teacher: req.body.teacher,
+    teacherId: req.body.teacherId,
   });
   console.log(enteredHomework);
   TeacherModel.findOneAndUpdate(
-    { fullName: enteredHomework.teacher },
+    { _id: enteredHomework.teacherId },
     { $push: { homeworks: enteredHomework } },
     (err, info) => {
       if (err) {

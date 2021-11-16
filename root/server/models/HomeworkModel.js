@@ -9,7 +9,7 @@ const homeworkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  teacher: {
+  teacherId: {
     type: String,
     required: true,
   },

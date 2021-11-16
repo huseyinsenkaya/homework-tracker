@@ -4,8 +4,7 @@ import classes from "./AssignmentsList.module.css";
 function AssignmentsList(props) {
   const id = window.sessionStorage.getItem("userId");
   const found = props.homeworks.find((item) => item._id === id);
-  console.log(found);
-  console.log(props.homeworks);
+
 
   return (
     <ul className={classes.ul}>
