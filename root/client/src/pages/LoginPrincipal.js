@@ -7,34 +7,21 @@ function LoginPrincipal(props) {
   const navigate = useNavigate();
   const userNameInputRef = useRef();
   const passwordInputRef = useRef();
-  const [principals, setPrincipals] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/all-principals")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setPrincipals(data);
-      });
-  }, []);
 
   function submitHandler(event) {
     event.preventDefault();
     let flag = true;
-    for (const item of principals) {
-      if (
-        item.username === userNameInputRef.current.value &&
-        item.password === passwordInputRef.current.value &&
-        item.userRole === "Admin"
-      ) {
-        window.sessionStorage.setItem("userRole", "1");
-        props.login();
-        navigate("/");
-        break;
-      } else {
-        flag = false;
-      }
+    console.log(userNameInputRef);
+    if (
+      userNameInputRef.current.value === "admin" &&
+      passwordInputRef.current.value === "admin123"
+    ) {
+      console.log("here");
+      window.sessionStorage.setItem("userRole", "1");
+      props.login();
+      navigate("/");
+    } else {
+      flag = false;
     }
     if (!flag) {
       navigate("/login-principals");
